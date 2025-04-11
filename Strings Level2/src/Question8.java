@@ -1,29 +1,36 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Question8 {
-    public static void generateException(String[] arr) {
-        System.out.println(arr[arr.length]); // Invalid index
-    }
-
-    public static void handleException(String[] arr) {
+    public static char[] getConsonants(String str) {
+        ArrayList<Character> consonants = new ArrayList<>();
+        int i = 0;
         try {
-            System.out.println(arr[arr.length]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Caught ArrayIndexOutOfBoundsException: " + e.getMessage());
-        } catch (RuntimeException e) {
-            System.out.println("Caught RuntimeException: " + e.getMessage());
+            while (true) {
+                char ch = str.charAt(i);
+                if (Character.isLetter(ch) && "AEIOUaeiou".indexOf(ch) == -1) {
+                    consonants.add(ch);
+                }
+                i++;
+            }
+        } catch (IndexOutOfBoundsException ignored) {}
+
+        char[] result = new char[consonants.size()];
+        for (int j = 0; j < consonants.size(); j++) {
+            result[j] = consonants.get(j);
         }
+        return result;
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String[] names = new String[3];
-        System.out.println("Enter 3 names:");
-        for (int i = 0; i < 3; i++) {
-            names[i] = sc.next();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+        char[] consonants = getConsonants(input);
+        System.out.print("Consonants in the string: ");
+        for (char c : consonants) {
+            System.out.print(c + " ");
         }
-
-        // generateException(names); // Uncomment to crash
-        handleException(names);
+        scanner.close();
     }
 }

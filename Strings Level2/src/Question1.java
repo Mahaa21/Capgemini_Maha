@@ -1,31 +1,27 @@
 import java.util.Scanner;
 
 public class Question1 {
-    public static boolean compareUsingCharAt(String str1, String str2) {
-        if (str1.length() != str2.length()) return false;
-        for (int i = 0; i < str1.length(); i++) {
-            if (str1.charAt(i) != str2.charAt(i)) return false;
+    public static int findLength(String str) {
+        int count = 0;
+        try {
+            while (true) {
+                str.charAt(count);
+                count++;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            // Exception indicates we've reached the end of the string
         }
-        return true;
+        return count;
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter first string: ");
-        String string1 = scanner.next();
-        System.out.print("Enter second string: ");
-        String string2 = scanner.next();
-
-        boolean resultCharAt = compareUsingCharAt(string1, string2);
-        boolean resultEquals = string1.equals(string2);
-
-        System.out.println("Comparison using charAt(): " + resultCharAt);
-        System.out.println("Comparison using equals(): " + resultEquals);
-
-        if (resultCharAt == resultEquals) {
-            System.out.println("Both methods yield the same result.");
-        } else {
-            System.out.println("Methods yield different results.");
-        }
+        System.out.print("Enter a string: ");
+        String input = scanner.next();
+        int customLength = findLength(input);
+        int builtInLength = input.length();
+        System.out.println("Custom method length: " + customLength);
+        System.out.println("Built-in method length: " + builtInLength);
+        scanner.close();
     }
 }

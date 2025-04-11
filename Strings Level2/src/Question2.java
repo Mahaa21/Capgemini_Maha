@@ -1,33 +1,64 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Question2 {
-    public static String substringUsingCharAt(String str, int start, int end) {
-        StringBuilder subStr = new StringBuilder();
-        for (int i = start; i < end; i++) {
-            subStr.append(str.charAt(i));
+    public static int findLength(String str) {
+        int count = 0;
+        try {
+            while (true) {
+                str.charAt(count);
+                count++;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            // Exception indicates we've reached the end of the string
         }
-        return subStr.toString();
+        return count;
+    }
+
+    public static String[] splitIntoWords(String str) {
+        int length = findLength(str);
+        int spaceCount = 0;
+        for (int i = 0; i < length; i++) {
+            if (str.charAt(i) == ' ') {
+                spaceCount++;
+            }
+        }
+
+        int[] spaceIndexes = new int[spaceCount];
+        int index = 0;
+        for (int i = 0; i < length; i++) {
+            if (str.charAt(i) == ' ') {
+                spaceIndexes[index++] = i;
+            }
+        }
+
+        String[] words = new String[spaceCount + 1];
+        int start = 0;
+        for (int i = 0; i <= spaceCount; i++) {
+            int end = (i < spaceCount) ? spaceIndexes[i] : length;
+            StringBuilder word = new StringBuilder();
+            for (int j = start; j < end; j++) {
+                word.append(str.charAt(j));
+            }
+            words[i] = word.toString();
+            start = end + 1;
+        }
+        return words;
+    }
+
+    public static boolean compareArrays(String[] arr1, String[] arr2) {
+        return Arrays.equals(arr1, arr2);
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the string: ");
-        String originalString = scanner.next();
-        System.out.print("Enter start index: ");
-        int startIndex = scanner.nextInt();
-        System.out.print("Enter end index: ");
-        int endIndex = scanner.nextInt();
-
-        String subStrCharAt = substringUsingCharAt(originalString, startIndex, endIndex);
-        String subStrMethod = originalString.substring(startIndex, endIndex);
-
-        System.out.println("Substring using charAt(): " + subStrCharAt);
-        System.out.println("Substring using substring(): " + subStrMethod);
-
-        if (subStrCharAt.equals(subStrMethod)) {
-            System.out.println("Both substrings are identical.");
-        } else {
-            System.out.println("Substrings are different.");
-        }
+        System.out.print("Enter a sentence: ");
+        String input = scanner.nextLine();
+        String[] customSplit = splitIntoWords(input);
+        String[] builtInSplit = input.split(" ");
+        System.out.println("Custom split result: " + Arrays.toString(customSplit));
+        System.out.println("Built-in split result: " + Arrays.toString(builtInSplit));
+        System.out.println("Are both results equal? " + compareArrays(customSplit, builtInSplit));
+        scanner.close();
     }
 }

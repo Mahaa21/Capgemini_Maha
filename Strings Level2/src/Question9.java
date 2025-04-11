@@ -1,37 +1,31 @@
 import java.util.Scanner;
 
 public class Question9 {
-    public static String toUpperCaseCustom(String str) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-            if (ch >= 'a' && ch <= 'z') {
-                result.append((char) (ch - 32));
-            } else {
-                result.append(ch);
+    public static void countCategories(String str) {
+        int digits = 0, upper = 0, lower = 0, special = 0;
+        int i = 0;
+        try {
+            while (true) {
+                char ch = str.charAt(i);
+                if (Character.isDigit(ch)) digits++;
+                else if (Character.isUpperCase(ch)) upper++;
+                else if (Character.isLowerCase(ch)) lower++;
+                else special++;
+                i++;
             }
-        }
-        return result.toString();
-    }
+        } catch (IndexOutOfBoundsException ignored) {}
 
-    public static boolean compareStrings(String s1, String s2) {
-        if (s1.length() != s2.length()) return false;
-        for (int i = 0; i < s1.length(); i++) {
-            if (s1.charAt(i) != s2.charAt(i)) return false;
-        }
-        return true;
+        System.out.println("Digits: " + digits);
+        System.out.println("Uppercase Letters: " + upper);
+        System.out.println("Lowercase Letters: " + lower);
+        System.out.println("Special Characters: " + special);
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter text: ");
-        String input = sc.nextLine();
-
-        String manual = toUpperCaseCustom(input);
-        String builtin = input.toUpperCase();
-
-        System.out.println("Custom Uppercase: " + manual);
-        System.out.println("Built-in Uppercase: " + builtin);
-        System.out.println("Match: " + compareStrings(manual, builtin));
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+        countCategories(input);
+        scanner.close();
     }
 }

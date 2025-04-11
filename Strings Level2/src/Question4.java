@@ -1,25 +1,35 @@
+import java.util.Scanner;
 public class Question4 {
-    // Method that throws NullPointerException
-    public static void generateException() {
-        String text = null;
-        System.out.println(text.length()); // This will throw NullPointerException
-    }
-
-    // Method that handles the exception
-    public static void handleException() {
-        String text = null;
+    public static int findLength(String str) {
+        int count = 0;
         try {
-            System.out.println(text.length());
-        } catch (NullPointerException e) {
-            System.out.println("Caught NullPointerException: " + e.getMessage());
+            while (true) {
+                str.charAt(count);
+                count++;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            // Exception indicates we've reached the end of the string
         }
+        return count;
     }
 
-    public static void main(String[] args) {
-        // Uncomment below line to see the program crash
-        // generateException();
+    public static String[] splitIntoWords(String str) {
+        int length = findLength(str);
+        int spaceCount = 0;
+        for (int i = 0; i < length; i++) {
+            if (str.charAt(i) == ' ') {
+                spaceCount++;
+            }
+        }
 
-        // Proper handling
-        handleException();
-    }
-}
+        int[] spaceIndexes = new int[spaceCount];
+        int index = 0;
+        for (int i = 0; i < length; i++) {
+            if (str.charAt(i) == ' ') {
+                spaceIndexes[index++] = i;
+            }
+        }
+
+        String[] words
+::contentReference[oaicite:0]{index=0}
+
